@@ -6,7 +6,7 @@
     <title>Gaia</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Georgia", Times, serif, sans-serif;
         background: #e8eefc;
         margin: 0;
         padding: 20px;
@@ -15,7 +15,7 @@
       }
 
       .coluna {
-        background: #dfe7fb;
+        background: #efe3f2;
         border-radius: 10px;
         padding: 10px;
         display: flex;
@@ -26,6 +26,7 @@
       .tarefas,
       .etiquetas {
         width: 200px;
+        font-size: 12px;
       }
 
       .kanban {
@@ -46,7 +47,7 @@
         background: #e0ecff;
         padding: 10px;
         border-radius: 10px;
-        min-height: 300px;
+        min-height: 600px;
       }
 
       .titulo-dia {
@@ -62,8 +63,9 @@
         background: white;
         border: 1px solid #ccc;
         border-radius: 8px;
-        padding: 8px;
-        margin-bottom: 8px;
+        padding: 10px;
+        margin-bottom: 10px;
+        font-size: x-small;
       }
 
       .etiqueta {
@@ -72,13 +74,14 @@
         border-radius: 4px;
         font-size: 10px;
         font-weight: bold;
-        color: white;
+        color: rgb(255, 255, 255);
         margin-top: 4px;
         margin-right: 5px;
       }
 
       .urgente {
         background: #d03f7f;
+        margin-top: 5px;
       }
 
       .importante {
@@ -100,6 +103,9 @@
         height: 20px;
         font-weight: bold;
         cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       .legenda {
@@ -114,12 +120,13 @@
         padding: 4px 8px;
         border-radius: 5px;
         width: fit-content;
+        font-size: smaller;
       }
 
       .importante-legenda {
         background: #f5e941;
         color: #000;
-        padding: 4px 8px;
+        padding: 6px 10px;
         border-radius: 5px;
         width: fit-content;
       }
