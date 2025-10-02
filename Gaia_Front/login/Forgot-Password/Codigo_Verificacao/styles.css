@@ -132,8 +132,8 @@ body{
 
 .email-forgot{
     font-size: 15px;
-    padding-top: 15px;
-    text-align: left;
+    padding-top: 20px;
+    text-align: center;
 }
 
 input[type=number]::-webkit-inner-spin-button, 
