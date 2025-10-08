@@ -12,23 +12,56 @@
 
 <body>
     <main class="container">
-        <form>
+        <form onsubmit="verificarCodigo(event)">
             <h1>CÓDIGO DE VERIFICAÇÃO</h1:>
                 <p class="email-forgot">
                     Digite o código de verificação que você recebeu no e-mail
                 </p>
+                <p id="emailInfo" class="email-forgot" style="color: #007bff; font-size: 14px;"></p>
                 <div class="input-box">
-                    <input placeholder="Código" type="number" inputmode="numeric" pattern="[0-9]*">
+                    <input placeholder="Código" type="number" inputmode="numeric" pattern="[0-9]*" id="codigo" required>
                     <i class="bx bxs-barcode"></i>
                 </div>
-                <button class="login-button" type="submit">Enviar código</button>
+                <button class="login-button" type="submit">Verificar código</button>
 
 
                 <div class="register-link">
-                    <p>Já tem uma conta?</p> <a href="#"> Ir para login</a>
+                    <p>Já tem uma conta?</p> <a href="../../index.html"> Ir para login</a>
                 </div>
         </form>
     </main>
+
+    <script>
+        // Mostrar email quando a página carregar
+        window.onload = function() {
+            const email = localStorage.getItem('emailRecuperacao');
+            if (email) {
+                document.getElementById('emailInfo').textContent = 'Código enviado para: ' + email;
+            } else {
+                // Se não há email, redirecionar para página anterior
+                window.location.href = '../index.html';
+            }
+        };
+
+        function verificarCodigo(event) {
+            event.preventDefault();
+            
+            const codigo = document.getElementById('codigo').value;
+            
+            if (codigo && codigo.length === 6) {
+                // Simular verificação do código
+                alert('Código verificado com sucesso!');
+                
+                // Armazenar código no localStorage
+                localStorage.setItem('codigoVerificado', 'true');
+                
+                // Redirecionar para página de redefinição de senha
+                window.location.href = '../Redefinicao_Senha/index.html';
+            } else {
+                alert('Por favor, digite um código válido de 6 dígitos');
+            }
+        }
+    </script>
 </body>
 
 </html>
