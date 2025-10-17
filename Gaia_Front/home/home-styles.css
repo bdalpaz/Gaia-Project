@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Alan Sans", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(../img/purpleforest.jpg);
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.game-container {
+    width: 550px; 
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 10px;
+    padding: 40px 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    backdrop-filter: blur(20px);
+    text-align: center;
+}
+
+.game-container h1 {
+    font-size: 48px;
+    margin-bottom: 40px;
+}
+
+.game-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item {
+    position: relative;
+    margin: 15px 0;
+}
+
+.menu-item a {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    display: block;
+    padding: 10px;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+    outline: none;
+}
+
+.menu-item .selector {
+    position: absolute;
+    left: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.menu-item:hover a,
+.menu-item a:focus {
+    transform: translateX(15px);
+    color: #d8c4ff; 
+}
+
+.menu-item:hover .selector,
+.menu-item a:focus + .selector {
+    opacity: 1;
+}
+
+.start-prompt {
+    margin-top: 40px;
+    font-size: 16px;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
