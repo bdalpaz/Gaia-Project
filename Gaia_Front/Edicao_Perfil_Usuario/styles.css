@@ -12,7 +12,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(../img/purpleforest.jpg);
+    background: url(/Gaia_Front/login/img/purpleforest.jpg);
     background-size: cover;
     background-position: center;
 }
@@ -23,7 +23,7 @@ body{
     border: 2px solid rgba(255, 255, 255, .2);
     border-radius: 10px;
     color: white;
-    padding: 15px 40px;
+    padding: 30px 40px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     backdrop-filter: blur(50px);
 }
@@ -124,8 +124,35 @@ body{
     text-decoration: underline;
 }
 
-.termos{
+#foto-perfil{
+    font-size: 100px;
+    padding-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+}
+
+
+.alterar-foto{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    font-size: 15px;
+    background-color: white;
+    border: none;
+    border-radius: 30px;
     cursor: pointer;
-    text-decoration: underline;
+    color: #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.alterar-foto:hover{
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
     color: white;
+    transition: 0.5s;
 }
