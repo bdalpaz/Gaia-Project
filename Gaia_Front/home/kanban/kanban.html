@@ -7,9 +7,38 @@
     <link rel="icon" type="image/png" href="../../img/kanban.png">
     <title>GAIA - Quadro Kanban</title>
     <link rel="stylesheet" href="kanban-styles.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 
 <body>
+
+<div class="user-toggle">
+        <button id="userBtn" aria-label="Abrir menu de usuário" title="Perfil">
+            <i class="bx bx-user-circle"></i>
+        </button>
+    </div>
+
+    <aside class="sidebar" id="sidebar" aria-hidden="true">
+        <button class="close-btn" id="closeSidebar" aria-label="Fechar painel">
+            <i class="bx bx-chevron-right"></i>
+        </button>
+        <h3>Minha Conta</h3>
+        <div class="profile-info">
+            <i class="bx bx-user-circle"></i>
+            <div>
+                <strong>Usuário</strong>
+                <div class="small">usuario@exemplo.com</div>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Perfil</a></li>
+                <li><a href="#">Configurações</a></li>
+                <li><a href="#">Sair</a></li>
+            </ul>
+        </nav>
+    </aside>
+
     <div class="game-wrapper">
         <main class="game-container">
             
@@ -82,6 +111,7 @@
 
         </main>
     </div>
+    <script src="script.js"></script>
 </body>
 
 </html>
