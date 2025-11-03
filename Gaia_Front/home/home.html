@@ -6,6 +6,84 @@
     <link rel="icon" type="image/png" href="../img/kanban.png">
     
     <link rel="stylesheet" href="home-styles.css">
+
+    <style>
+        .modal-overlay {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85); 
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+       .modal-content {
+        background: #1a1a1a;
+        color: #e0e0e0;
+        font-family: 'Courier New', Courier, monospace;
+        
+        padding: 35px 45px;
+        border: 2px solid #33ff33;
+        box-shadow: 0 0 20px rgba(51, 255, 51, 0.2); 
+        
+        position: relative;
+        max-width: 550px; 
+        width: 90%;
+        line-height: 1.6; 
+    }
+
+    .modal-title {
+        color: #33ff33;
+        margin-top: 0;
+        margin-bottom: 25px; 
+        text-align: center;
+    }
+    
+    .modal-content p {
+        margin-bottom: 15px; 
+    }
+
+    .modal-content ul {
+        list-style: none;
+        padding-left: 10px;
+        margin-top: 20px; 
+    }
+    
+    .modal-content li {
+        margin-bottom: 12px;
+        line-height: 1.5; 
+    }
+    
+    .modal-content li strong {
+        color: #33ff33; 
+    }
+
+    .modal-close {
+        position: absolute;
+        top: 15px;
+        right: 20px; 
+        color: #ff4136; 
+        font-size: 2.8em;
+        font-weight: bold;
+        cursor: pointer;
+        line-height: 1;
+    }
+    .modal-close:hover {
+        color: #ff7f7f;
+    }
+        .start-prompt {
+            cursor: pointer;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -23,7 +101,7 @@
                 </li>
                 <li class="menu-item">
                     <span class="selector">&gt;</span>
-                    <a href="configuracoes.html">Configurações</a>
+                    <a href="../settings/settings.html">Configurações</a>
                 </li>
                 <li class="menu-item">
                     <span class="selector">&gt;</span>
@@ -31,8 +109,59 @@
                 </li>
             </ul>
         </nav>
-        <div class="start-prompt">Pressione ENTER para iniciar</div>
+        
+        <div class="start-prompt" id="start-button">Pressione ENTER para iniciar</div>
     </main>
-</body>
 
+    <div class="modal-overlay" id="welcome-modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modal-close-button">&times;</span>
+            
+            <h2 class="modal-title">Bem-vindo ao GAIA!</h2>
+            <p>GAIA é o seu organizador de tarefas pessoal com estilo retrô.</p>
+            <p>Como usar o sistema:</p>
+            <ul>
+                <li><strong>Kanban:</strong> Organize suas tarefas em colunas (A Fazer, Em Progresso, Feito... Como desejar!).</li>
+                <li><strong>Organizador Mensal:</strong> Planeje seus compromissos futuros.</li>
+                <li><strong>Navegação:</strong> Use os links do menu para navegar pelas seções.</li>
+                <li><strong>Voltar:</strong> Use a opção "Voltar" nas telas para retornar a este menu.</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script>
+        const startButton = document.getElementById('start-button');
+        const modalOverlay = document.getElementById('welcome-modal');
+        const closeModalButton = document.getElementById('modal-close-button');
+
+        function openModal() {
+            modalOverlay.classList.add('active'); 
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active'); 
+        }
+
+
+        startButton.addEventListener('click', openModal);
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                if (!modalOverlay.classList.contains('active')) {
+                    openModal();
+                }
+            }
+        });
+
+        closeModalButton.addEventListener('click', closeModal);
+
+        modalOverlay.addEventListener('click', function(event) {
+            if (event.target === modalOverlay) {
+                closeModal();
+            }
+        });
+    </script>
+
+</body>
 </html>
