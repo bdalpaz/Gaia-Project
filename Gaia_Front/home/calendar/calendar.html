@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../img/kanban.png"> <title>GAIA - Organizador Mensal</title>
+    
+    <link rel="stylesheet" href="calendar-styles.css">
+</head>
+
+<body>
+    <div class="game-wrapper">
+        <main class="game-container">
+            
+            <h1>Organizador Mensal</h1>
+
+            <div class="organizer-layout">
+
+                <div id="task-list-container">
+                    <h3>Tarefas (Arraste)</h3>
+                    <ul id="external-tasks">
+                        <li class="task-item" 
+                            data-event='{"title": "Criar tela de login"}'>
+                            Criar tela de login
+                        </li>
+                        <li class="task-item" 
+                            data-event='{"title": "Configurar banco de dados"}'>
+                            Configurar banco de dados
+                        </li>
+                        <li class="task-item" 
+                            data-event='{"title": "Modelar API"}'>
+                            Modelar API
+                        </li>
+                        <li class="task-item" 
+                            data-event='{"title": "Desenvolver a Home (GAIA)"}'>
+                            Desenvolver a Home (GAIA)
+                        </li>
+                         <li class="task-item" 
+                            data-event='{"title": "Testar funcionalidade X"}'>
+                            Testar funcionalidade X
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="calendar-container">
+                    <div id="calendar"></div>
+                </div>
+
+            </div>
+
+            <nav class="game-menu navigation-menu">
+                <ul>
+                    <li class="menu-item">
+                        <span class="selector">&gt;</span>
+                        <a href="../home.html">Voltar</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </main>
+    </div>
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+    
+    <script src="calendar.js"></script>
+
+</body>
+</html>
