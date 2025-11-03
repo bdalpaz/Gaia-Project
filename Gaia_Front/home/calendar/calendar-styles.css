@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap');
+
+:root {
+    --highlight-color: #d8c4ff; 
+    --background-color-dark: rgba(25, 20, 40, 0.6); 
+    --border-color-light: rgba(255, 255, 255, 0.2);
+    --border-color-highlight: rgba(216, 196, 255, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Alan Sans", sans-serif;
+    color: white;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(../../img/purpleforest.jpg); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; 
+}
+
+.game-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+}
+
+.game-container {
+    width: 1200px; 
+    max-width: 95vw;
+    height: 90vh; 
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color-dark);
+    border: 2px solid var(--border-color-highlight);
+    border-radius: 10px;
+    padding: 30px 40px;
+    box-shadow: 0 0 15px rgba(216, 196, 255, 0.2); 
+    backdrop-filter: blur(10px);
+    text-align: center;
+    overflow: hidden;
+}
+
+.game-container h1 {
+    font-size: 40px; 
+    margin-bottom: 25px; 
+    flex-shrink: 0;
+}
+
+.organizer-layout {
+    display: flex;
+    flex: 1; 
+    gap: 20px;
+    overflow: hidden; 
+}
+
+#task-list-container {
+    flex: 0 0 250px; 
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid var(--border-color-light);
+}
+
+#task-list-container h3 {
+    font-size: 20px; 
+    color: var(--highlight-color); 
+    margin-bottom: 15px; 
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color-highlight); 
+}
+
+#external-tasks {
+    list-style: none;
+    padding: 0 5px;
+    margin: 0;
+    flex: 1;
+    scrollbar-width: thin;
+    scrollbar-color: var(--highlight-color) rgba(0,0,0,0.3);
+}
+
+.task-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    padding: 10px 12px; 
+    margin-bottom: 8px; 
+    font-size: 15px; 
+    text-align: left;
+    cursor: grab; 
+    transition: all 0.2s ease-in-out;
+    border: 1px solid transparent;
+}
+
+.task-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--highlight-color); 
+    border-color: var(--border-color-highlight); 
+}
+
+#calendar-container {
+    flex: 1; 
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid var(--border-color-light);
+    overflow: hidden; 
+}
+
+#calendar {
+    width: 100%;
+    height: 100%;
+}
+
+
+#calendar .fc {
+    color: white;
+}
+
+.fc .fc-toolbar-title {
+    font-size: 24px;
+    color: var(--highlight-color);
+}
+
+.fc .fc-button {
+    font-family: "Alan Sans", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--highlight-color);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-color-highlight) !important;
+    text-transform: capitalize;
+    transition: all 0.2s ease-in-out;
+}
+.fc .fc-button:hover,
+.fc .fc-button:active,
+.fc .fc-button:focus {
+    background-color: var(--highlight-color) !important;
+    color: #0f0c29 !important;
+    box-shadow: 0 0 10px rgba(216, 196, 255, 0.5) !important;
+}
+
+.fc .fc-col-header-cell-cushion {
+    color: var(--highlight-color);
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.fc .fc-daygrid-day-number {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+
+.fc .fc-day-today {
+    background-color: rgba(216, 196, 255, 0.1) !important;
+}
+.fc .fc-day-today .fc-daygrid-day-number {
+    color: var(--highlight-color) !important;
+    font-weight: bold;
+}
+
+.fc-event {
+    background-color: var(--highlight-color) !important;
+    border: 1px solid var(--highlight-color) !important;
+    color: #0f0c29 !important;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 2px 4px;
+}
+
+.fc a { box-shadow: none !important; }
+.fc:focus-visible { box-shadow: none !important; }
+
+.game-menu ul { list-style: none; padding: 0; margin: 0; }
+.navigation-menu { margin-top: 20px; flex-shrink: 0; display: flex; justify-content: center; }
+.menu-item { position: relative; margin: 0; }
+.menu-item a { text-decoration: none; font-size: 18px; display: block; padding: 5px 10px; transition: transform 0.2s ease-in-out, color 0.2s ease-in-out; outline: none; }
+.menu-item .selector { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px; font-weight: bold; opacity: 0; transition: opacity 0.2s ease-in-out; color: var(--highlight-color); }
+.menu-item:hover a, .menu-item a:focus { transform: translateX(10px); color: var(--highlight-color); }
+.menu-item:hover .selector, .menu-item a:focus ~ .selector, .menu-item:focus-within .selector { opacity: 1; }
+.menu-item:focus-within a { transform: translateX(10px); color: var(--highlight-color); }
