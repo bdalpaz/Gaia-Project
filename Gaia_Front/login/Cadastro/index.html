@@ -12,41 +12,43 @@
 
 <body>
     <main class="container">
-        <form>
-            <h1>CADASTRO</h1:>
-                <div class="input-box">
-                    <input placeholder="Nome Completo" type="text">
-                    <i class="bx bxs-user"></i>
-                </div>
-                <div class="input-box">
-                    <input placeholder="Nome de Usuário" type="text">
-                    <i class="bx bxs-user"></i>
-                </div>
-                <div class="input-box">
-                    <input placeholder="E-mail" type="email">
-                    <i class="bx bxs-id-card"></i>
-                </div>
-                <div class="input-box">
-                    <input placeholder="Senha" type="password">
-                    <i class="bx bxs-lock-alt"></i>
-                </div>
-                <div class="input-box">
-                    <input placeholder="Repita sua Senha" type="password">
-                    <i class="bx bxs-lock-alt"></i>
-                </div>
+    <!-- Form submits to home after successful registration (temporary static behavior) -->
+    <!-- Fixed relative path: from login/Cadastro -> ../../home/home.html -->
+    <form action="../../home/home.html" method="get">
+            <h1>CADASTRO</h1>
+            <div class="input-box">
+                <input name="fullName" placeholder="Nome Completo" type="text">
+                <i class="bx bxs-user"></i>
+            </div>
+            <div class="input-box">
+                <input name="username" placeholder="Nome de Usuário" type="text">
+                <i class="bx bxs-user"></i>
+            </div>
+            <div class="input-box">
+                <input name="email" placeholder="E-mail" type="email">
+                <i class="bx bxs-id-card"></i>
+            </div>
+            <div class="input-box">
+                <input name="password" placeholder="Senha" type="password">
+                <i class="bx bxs-lock-alt"></i>
+            </div>
+            <div class="input-box">
+                <input name="passwordConfirm" placeholder="Repita sua Senha" type="password">
+                <i class="bx bxs-lock-alt"></i>
+            </div>
 
-                <div class="remember-forgot">
-                    <label for="">
-                        <input type="checkbox">
-                        Eu li e concordo com os <a class="termos">Termos de uso</a>
-                    </label>
-                </div>
+            <div class="remember-forgot">
+                <label for="">
+                    <input type="checkbox">
+                    Eu li e concordo com os <a class="termos">Termos de uso</a>
+                </label>
+            </div>
 
-                <button class="login-button" type="submit">Registrar</button>
+            <button class="login-button" type="submit">Registrar</button>
 
-                <div class="register-link">
-                    <p>Já tem uma conta?</p> <a href="../index.html"> Ir para login</a>
-                </div>
+            <div class="register-link">
+                <p>Já tem uma conta?</p> <a href="../index.html"> Ir para login</a>
+            </div>
         </form>
     </main>
 </body>

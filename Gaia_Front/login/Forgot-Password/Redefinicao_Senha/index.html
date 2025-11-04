@@ -12,25 +12,25 @@
 
 <body>
     <main class="container">
-        <form>
-            <h1>REDEFINIÇÃO DE SENHA</h1:>
-                <p class="email-forgot">
-                    Defina sua nova senha
-                </p>
-                <div class="input-box">
-                    <input placeholder="Nova senha" type="password">
-                    <i class="bx bxs-lock-alt"></i>
-                </div>
-                <div class="input-box">
-                    <input placeholder="Digite novamente a senha" type="password">
-                    <i class="bx bxs-lock-alt"></i>
-                </div>
-                <button class="login-button" type="submit">Redefinir senha</button>
+        <!-- After resetting password navigate back to login page -->
+        <form action="../../index.html" method="get">
+            <h1>REDEFINIÇÃO DE SENHA</h1>
+            <p class="email-forgot">
+                Defina sua nova senha
+            </p>
+            <div class="input-box">
+                <input name="newPassword" placeholder="Nova senha" type="password">
+                <i class="bx bxs-lock-alt"></i>
+            </div>
+            <div class="input-box">
+                <input name="confirmPassword" placeholder="Digite novamente a senha" type="password">
+                <i class="bx bxs-lock-alt"></i>
+            </div>
+            <button class="login-button" type="submit">Redefinir senha</button>
 
-
-                <div class="register-link">
-                    <p>Já tem uma conta?</p> <a href="../../index.html"> Ir para login</a>
-                </div>
+            <div class="register-link">
+                <p>Já tem uma conta?</p> <a href="../../index.html"> Ir para login</a>
+            </div>
         </form>
     </main>
 </body>
