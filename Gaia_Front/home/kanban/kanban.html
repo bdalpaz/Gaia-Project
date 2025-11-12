@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../../img/kanban.png">
     <title>GAIA - Quadro Kanban</title>
+    
     <link rel="stylesheet" href="kanban-styles.css">
+    
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -15,7 +18,7 @@
             
             <h1>Quadro Kanban</h1>
 
-            <div class="action-menu">
+           <div class="action-menu">
                 <button class="action-button add-task" data-tooltip="Adicionar Tarefa">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
@@ -82,6 +85,26 @@
 
         </main>
     </div>
-</body>
 
+    <div class="modal-overlay" id="add-task-modal" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="close-modal-btn" aria-label="Fechar modal">
+                <i class="bx bx-x"></i> </button>
+            <h3>Adicionar Nova Tarefa</h3>
+            
+            <form id="add-task-form">
+                <div class="form-group">
+                    <label for="task-name">Nome da Tarefa:</label>
+                    <input type="text" id="task-name" name="task-name" required autocomplete="off">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn-cancel" id="cancel-task-btn">Cancelar</button>
+                    <button type="submit" class="modal-btn-save">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+
+</body>
 </html>
