@@ -44,6 +44,30 @@
                 </div>
 
                 <div id="calendar-container">
+                    <div id="year-overview" aria-label="Visão anual">
+                        <div class="year-controls">
+                            <span id="year-label"></span>
+                        </div>
+                        <div id="months-grid"></div>
+                    </div>
+
+                    <aside id="month-sidebar" class="month-sidebar" aria-hidden="true">
+                        <div class="sidebar-header">
+                            <strong>Meses</strong>
+                        </div>
+                        <ul id="sidebar-months" class="sidebar-months" tabindex="0">
+                        </ul>
+                    </aside>
+
+                    <div id="month-view" class="month-view" style="display:none;">
+                        <div class="month-view-header">
+                            <button id="back-to-overview" class="back-btn" aria-label="Voltar">◀ Voltar</button>
+                            <h2 id="month-view-title"></h2>
+                        </div>
+                        <div id="days-grid" class="days-grid">
+                        </div>
+                    </div>
+
                     <div id="calendar"></div>
                 </div>
 
