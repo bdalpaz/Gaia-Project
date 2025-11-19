@@ -12,20 +12,21 @@
 
 <body>
     <main class="container">
-        <form action="../home/home.html" method="get">
+        <form id="loginForm" onsubmit="handleLogin(event)">
             <h1>GAIA</h1>
+            <div id="errorMessage" style="color: #ff6b6b; text-align: center; margin-bottom: 10px; display: none;"></div>
             <div class="input-box">
-                <input name="email" placeholder="Usuário" type="email">
+                <input id="email" name="email" placeholder="E-mail" type="email" required>
                 <i class="bx bxs-user"></i>
             </div>
             <div class="input-box">
-                <input name="password" placeholder="Senha" type="password">
+                <input id="password" name="password" placeholder="Senha" type="password" required>
                 <i class="bx bxs-lock-alt"></i>
             </div>
 
             <div class="remember-forgot">
                 <label for="">
-                    <input type="checkbox">
+                    <input type="checkbox" id="rememberMe">
                     Lembrar senha
                 </label>
                 <a href="./Forgot-Password/index.html">Esqueci a senha</a>
@@ -38,6 +39,83 @@
             </div>
         </form>
     </main>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const loginButton = document.querySelector('.login-button');
+            
+            // Limpar mensagem de erro
+            errorMessage.style.display = 'none';
+            errorMessage.textContent = '';
+            loginButton.disabled = true;
+            loginButton.textContent = 'Entrando...';
+
+            try {
+                const response = await fetch(`${API_URL}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Salvar token e informações do usuário
+                    localStorage.setItem('authToken', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    
+                    // Redirecionar para home
+                    window.location.href = '../home/home.html';
+                } else {
+                    errorMessage.textContent = data.message || 'Erro ao fazer login';
+                    errorMessage.style.display = 'block';
+                    loginButton.disabled = false;
+                    loginButton.textContent = 'Login';
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                errorMessage.textContent = 'Erro de conexão. Verifique se o servidor está rodando.';
+                errorMessage.style.display = 'block';
+                loginButton.disabled = false;
+            } finally {
+                loginButton.textContent = 'Login';
+            }
+        }
+
+        // Verificar se já está logado
+        const token = localStorage.getItem('authToken');
+        if (token) {
+            // Verificar se o token ainda é válido
+            fetch(`${API_URL}/me`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    // Token válido, redirecionar
+                    window.location.href = '../home/home.html';
+                } else {
+                    // Token inválido, limpar
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('user');
+                }
+            })
+            .catch(() => {
+                // Erro na verificação, manter na página de login
+            });
+        }
+    </script>
 </body>
 
 </html>

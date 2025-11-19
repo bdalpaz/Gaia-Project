@@ -131,6 +131,30 @@
 
 
     <script>
+        // Verificar autenticação
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            window.location.href = '../login/index.html';
+        }
+
+        // Verificar se token ainda é válido
+        fetch('http://localhost:3000/api/me', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) {
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('user');
+                window.location.href = '../login/index.html';
+            }
+        })
+        .catch(() => {
+            // Se houver erro de conexão, permitir acesso (servidor pode estar offline)
+        });
+
         const startButton = document.getElementById('start-button');
         const modalOverlay = document.getElementById('welcome-modal');
         const closeModalButton = document.getElementById('modal-close-button');
@@ -161,6 +185,17 @@
                 closeModal();
             }
         });
+
+        // Atualizar link de sair
+        const logoutLink = document.querySelector('a[href="../login/index.html"]');
+        if (logoutLink && logoutLink.textContent.includes('Sair')) {
+            logoutLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('user');
+                window.location.href = '../login/index.html';
+            });
+        }
     </script>
 
 </body>
