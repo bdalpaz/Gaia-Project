@@ -322,3 +322,54 @@ renderYearOverview(overviewYear);
 
     loadTasks();
 })();
+
+// Sidebar behavior (copied from kanban script)
+(function(){
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const userBtn = document.getElementById('userBtn');
+    const sidebar = document.getElementById('sidebar');
+    const closeBtn = document.getElementById('closeSidebar');
+    const profileInfo = document.querySelector('.profile-info');
+
+    // Populate profile info if present
+    if (profileInfo){
+        const userInfo = profileInfo.querySelector('div');
+        if (userInfo){
+            userInfo.querySelector('strong').textContent = user.username || 'Usuário';
+            userInfo.querySelector('.small').textContent = user.email || 'usuario@exemplo.com';
+        }
+    }
+
+    if (userBtn && sidebar){
+        function openSidebar(){
+            sidebar.classList.add('open');
+            sidebar.setAttribute('aria-hidden','false');
+        }
+        function closeSidebarFunc(){
+            sidebar.classList.remove('open');
+            sidebar.setAttribute('aria-hidden','true');
+        }
+        userBtn.addEventListener('click', function(e){
+            e.stopPropagation();
+            if (sidebar.classList.contains('open')) closeSidebarFunc(); else openSidebar();
+        });
+        if (closeBtn) closeBtn.addEventListener('click', closeSidebarFunc);
+        document.addEventListener('click', function(e){
+            if (!sidebar.classList.contains('open')) return;
+            if (!sidebar.contains(e.target) && e.target !== userBtn && !userBtn.contains(e.target)){
+                closeSidebarFunc();
+            }
+        });
+        document.addEventListener('keydown', function(e){ if (e.key==='Escape') closeSidebarFunc(); });
+    }
+
+    const logoutBtn = document.querySelector('.sidebar-logout');
+    if (logoutBtn){
+        logoutBtn.addEventListener('click', (e)=>{
+            e.preventDefault();
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('user');
+            window.location.href = '../../login/index.html';
+        });
+    }
+})();

@@ -7,9 +7,37 @@
     <link rel="icon" type="image/png" href="../../img/kanban.png"> <title>GAIA - Organizador Mensal</title>
     
     <link rel="stylesheet" href="calendar-styles.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 
 <body>
+    <div class="user-toggle">
+        <button id="userBtn" aria-label="Abrir menu de usuário" title="Perfil">
+            <i class="bx bx-user-circle"></i>
+        </button>
+    </div>
+
+    <aside class="sidebar" id="sidebar" aria-hidden="true">
+        <button class="close-btn" id="closeSidebar" aria-label="Fechar painel">
+            <i class="bx bx-chevron-right"></i>
+        </button>
+        <h3>Minha Conta</h3>
+        <div class="profile-info">
+            <i class="bx bx-user-circle"></i>
+            <div>
+                <strong>Usuário</strong>
+                <div class="small">usuario@exemplo.com</div>
+            </div>
+        </div>
+        <nav>
+            <div class="sidebar-buttons">
+                <button class="sidebar-btn" onclick="window.location.href='../../edicao_perfil_usuario/index.html'">Perfil</button>
+                <button class="sidebar-btn" onclick="window.location.href='../../settings/settings.html'">Configurações</button>
+                <button class="sidebar-btn sidebar-logout">Sair</button>
+            </div>
+        </nav>
+    </aside>
+
     <div class="game-wrapper">
         <main class="game-container">
             
