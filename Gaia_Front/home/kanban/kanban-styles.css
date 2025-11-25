@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap');
 
+/* --- Variáveis de Tema --- */
 :root {
     --highlight-color: #d8c4ff; 
     --background-color-dark: rgba(25, 20, 40, 0.6); 
@@ -8,6 +9,7 @@
     --tooltip-bg: #0f0c29;
 }
 
+/* --- Estilos Globais --- */
 * {
     margin: 0;
     padding: 0;
@@ -36,6 +38,7 @@ body {
     padding: 20px;
 }
 
+/* --- Container Principal --- */
 .game-container {
     width: 1200px; 
     max-width: 95vw;
@@ -56,8 +59,10 @@ body {
     margin-bottom: 25px; 
     flex-shrink: 0;
     text-shadow: 0 0 5px rgba(216, 196, 255, 0.5);
+    color: var(--highlight-color);
 }
 
+/* --- Botões de Ação (Menu Superior) --- */
 .action-menu {
     display: flex;
     justify-content: flex-start;
@@ -81,7 +86,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    
     position: relative; 
 }
 
@@ -114,14 +118,13 @@ body {
     box-shadow: 0 0 10px rgba(255, 196, 196, 0.5);
 }
 
-
+/* Tooltips */
 .action-button::after {
     content: attr(data-tooltip); 
     position: absolute;
     bottom: 130%; 
     left: 50%;
     transform: translateX(-50%);
-    
     background-color: var(--tooltip-bg);
     color: white;
     padding: 5px 10px;
@@ -129,7 +132,6 @@ body {
     font-size: 13px;
     font-weight: bold;
     white-space: nowrap; 
-    
     opacity: 0;
     transition: opacity 0.2s ease;
     pointer-events: none; 
@@ -143,11 +145,9 @@ body {
     margin-bottom: -5px; 
     left: 50%;
     transform: translateX(-50%);
-    
     border-width: 5px;
     border-style: solid;
     border-color: var(--tooltip-bg) transparent transparent transparent;
-    
     opacity: 0;
     transition: opacity 0.2s ease;
     pointer-events: none;
@@ -159,7 +159,7 @@ body {
     opacity: 1;
 }
 
-
+/* --- Layout do Kanban --- */
 .kanban-board {
     display: flex;
     justify-content: space-between;
@@ -211,6 +211,7 @@ body {
     border-radius: 4px;
 }
 
+/* --- Cartões de Tarefa --- */
 .task-card {
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
@@ -254,6 +255,7 @@ body {
     transition: background 120ms ease, box-shadow 120ms ease;
 }
 
+/* --- Navegação "Voltar" --- */
 .game-menu ul {
     list-style: none;
     padding: 0;
@@ -311,159 +313,280 @@ body {
 }
 
 
-        .user-toggle {
-            position: fixed;
-            top: 16px;
-            right: 16px;
-            z-index: 1200;
-        }
+/* --- Sidebar e Toggle User --- */
+.user-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 1200;
+}
 
-        .user-toggle button {
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            font-size: 28px;
-            color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 6px;
-            border-radius: 6px;
-        }
+.user-toggle button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 28px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 6px;
+}
 
-        .user-toggle button:hover {
-            background: rgba(0,0,0,0.06);
-        }
+.user-toggle button:hover {
+    background: rgba(0,0,0,0.06);
+}
 
-   
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: -320px; 
-            width: 300px;
-            height: 100vh;
-            background: rgba(25, 20, 40, 0.95);
-            box-shadow: -8px 0 20px rgba(216, 196, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-left: 1px solid rgba(216, 196, 255, 0.2);
-            transition: right 0.28s ease;
-            z-index: 1150;
-            padding: 20px;
-            overflow-y: auto;
-            font-family: inherit;
-        }
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -320px; 
+    width: 300px;
+    height: 100vh;
+    background: rgba(25, 20, 40, 0.95);
+    box-shadow: -8px 0 20px rgba(216, 196, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-left: 1px solid rgba(216, 196, 255, 0.2);
+    transition: right 0.28s ease;
+    z-index: 1150;
+    padding: 20px;
+    overflow-y: auto;
+    font-family: inherit;
+}
 
-        .sidebar.open {
-            right: 0;
-        }
+.sidebar.open {
+    right: 0;
+}
 
-        .sidebar .close-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: transparent;
-            border: 1px solid rgba(216, 196, 255, 0.2);
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 18px;
-            padding: 4px 6px;
-            color: var(--highlight-color);
-            transition: all 0.2s ease;
-        }
+.sidebar .close-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 1px solid rgba(216, 196, 255, 0.2);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px 6px;
+    color: var(--highlight-color);
+    transition: all 0.2s ease;
+}
 
-        .sidebar .close-btn:hover {
-            background: rgba(216, 196, 255, 0.1);
-            border-color: var(--highlight-color);
-        }
+.sidebar .close-btn:hover {
+    background: rgba(216, 196, 255, 0.1);
+    border-color: var(--highlight-color);
+}
 
-        .sidebar h3 {
-            margin-top: 8px;
-            margin-bottom: 12px;
-            color: var(--highlight-color);
-        }
+.sidebar h3 {
+    margin-top: 8px;
+    margin-bottom: 12px;
+    color: var(--highlight-color);
+}
 
-        .sidebar .profile-info {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            margin-bottom: 18px;
-            padding: 12px;
-            border-radius: 8px;
-            background: rgba(216, 196, 255, 0.1);
-            border: 1px solid rgba(216, 196, 255, 0.2);
-        }
+.sidebar .profile-info {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 18px;
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(216, 196, 255, 0.1);
+    border: 1px solid rgba(216, 196, 255, 0.2);
+}
 
-        .sidebar .profile-info .bx {
-            font-size: 42px;
-            color: var(--highlight-color);
-        }
+.sidebar .profile-info .bx {
+    font-size: 42px;
+    color: var(--highlight-color);
+}
 
-        .sidebar .profile-info strong {
-            color: white;
-        }
+.sidebar .profile-info strong {
+    color: white;
+}
 
-        .sidebar .profile-info .small {
-            color: rgba(255, 255, 255, 0.7);
-        }
+.sidebar .profile-info .small {
+    color: rgba(255, 255, 255, 0.7);
+}
 
-        .sidebar nav ul {
-            list-style: none;
-            padding: 0;
-        }
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
 
-        .sidebar nav ul li {
-            margin-bottom: 8px;
-        }
+.sidebar nav ul li {
+    margin-bottom: 8px;
+}
 
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 10px 12px;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            border: 1px solid transparent;
-        }
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
 
-        .sidebar a:hover {
-            background: rgba(216, 196, 255, 0.1);
-            color: var(--highlight-color);
-            border-color: rgba(216, 196, 255, 0.2);
-        }
+.sidebar a:hover {
+    background: rgba(216, 196, 255, 0.1);
+    color: var(--highlight-color);
+    border-color: rgba(216, 196, 255, 0.2);
+}
 
-        .sidebar-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+.sidebar-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 
-        .sidebar-btn {
-            width: 100%;
-            background: transparent;
-            color: white;
-            border: 1px solid rgba(216, 196, 255, 0.2);
-            border-radius: 6px;
-            padding: 10px 12px;
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: "Alan Sans", sans-serif;
-            text-align: left;
-        }
+.sidebar-btn {
+    width: 100%;
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(216, 196, 255, 0.2);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: "Alan Sans", sans-serif;
+    text-align: left;
+}
 
-        .sidebar-btn:hover {
-            background: rgba(216, 196, 255, 0.1);
-            color: var(--highlight-color);
-            border-color: var(--highlight-color);
-        }
+.sidebar-btn:hover {
+    background: rgba(216, 196, 255, 0.1);
+    color: var(--highlight-color);
+    border-color: var(--highlight-color);
+}
 
-        .sidebar-logout {
-            color: #ff9999;
-            border-color: rgba(255, 153, 153, 0.3);
-        }
+.sidebar-logout {
+    color: #ff9999;
+    border-color: rgba(255, 153, 153, 0.3);
+}
 
-        .sidebar-logout:hover {
-            background: rgba(255, 153, 153, 0.1);
-            color: #ffcccc;
-            border-color: #ff9999;
-        }
+.sidebar-logout:hover {
+    background: rgba(255, 153, 153, 0.1);
+    color: #ffcccc;
+    border-color: #ff9999;
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* Fundo escuro sutil */
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: 9999; /* Garante que fique na frente de tudo */
+    
+    /* Centralização absoluta */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Estados iniciais (invisível) */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+}
+
+/* Quando ativado pelo JavaScript */
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* A Caixinha do Modal */
+.modal-content {
+    width: 320px; /* Largura fixa pequena */
+    padding: 25px;
+    
+    /* Visual Glassmorphism Escuro */
+    background-color: #15101f; 
+    border: 1px solid var(--border-color-highlight);
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    /* Animação de "pulo" ao abrir */
+    transform: scale(0.8);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+/* Título */
+.modal-content h2 {
+    color: var(--highlight-color);
+    font-size: 18px;
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Input */
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color-light);
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--highlight-color);
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 3px rgba(216, 196, 255, 0.1);
+}
+
+/* Botões */
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.modal-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    transition: 0.2s;
+}
+
+.modal-btn.confirm {
+    background-color: var(--highlight-color);
+    color: #0f0c29;
+}
+
+.modal-btn.confirm:hover {
+    background-color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.modal-btn.cancel {
+    background: transparent;
+    color: #bbb;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-btn.cancel:hover {
+    color: white;
+    border-color: #ff5555;
+    color: #ff5555;
+}

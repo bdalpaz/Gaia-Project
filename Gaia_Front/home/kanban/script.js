@@ -87,6 +87,28 @@
     }
   }
 
+  async function updateTaskTitle(taskId, newTitle) {
+    try {
+      const response = await fetch(`${API_URL}/tasks/${taskId}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title: newTitle })
+      });
+      const data = await response.json();
+      if (data.success) {
+        const taskCard = document.querySelector(`[data-task-id="${taskId}"]`);
+        if (taskCard) {
+          taskCard.textContent = newTitle;
+        }
+      }
+    } catch (error) {
+      console.error('Erro ao atualizar título:', error);
+    }
+  }
+
   async function deleteTask(taskId) {
     try {
       const response = await fetch(`${API_URL}/tasks/${taskId}`, {
@@ -115,7 +137,9 @@
     taskCard.setAttribute('data-task-id', task.id);
     taskCard.textContent = task.title;
     
-    // Adicionar evento de duplo clique para editar
+    // Animação de entrada
+    taskCard.classList.add('drop-animate');
+
     taskCard.addEventListener('dblclick', () => {
       const newTitle = prompt('Editar tarefa:', task.title);
       if (newTitle && newTitle.trim() && newTitle !== task.title) {
@@ -123,45 +147,19 @@
       }
     });
 
-    // Adicionar eventos de drag
     taskCard.addEventListener('dragstart', handleDragStart);
     taskCard.addEventListener('dragend', handleDragEnd);
 
     list.appendChild(taskCard);
   }
 
-  async function updateTaskTitle(taskId, newTitle) {
-    try {
-      const response = await fetch(`${API_URL}/tasks/${taskId}`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ title: newTitle })
-      });
-      const data = await response.json();
-      if (data.success) {
-        const taskCard = document.querySelector(`[data-task-id="${taskId}"]`);
-        if (taskCard) {
-          taskCard.textContent = newTitle;
-        }
-      }
-    } catch (error) {
-      console.error('Erro ao atualizar título:', error);
-    }
-  }
-
-  // Carregar tarefas do backend
   async function loadTasks() {
-    // Limpar tarefas existentes
     document.querySelectorAll('.task-card').forEach(card => card.remove());
-    
     const tasks = await fetchTasks();
     tasks.forEach(task => renderTask(task));
   }
 
-  // Sidebar
+  // Sidebar Logic
   const userBtn = document.getElementById("userBtn");
   const sidebar = document.getElementById("sidebar");
   const closeBtn = document.getElementById("closeSidebar");
@@ -171,37 +169,25 @@
       sidebar.classList.add("open");
       sidebar.setAttribute("aria-hidden", "false");
     }
-
     function closeSidebarFunc() {
       sidebar.classList.remove("open");
       sidebar.setAttribute("aria-hidden", "true");
     }
-
     userBtn.addEventListener("click", function (e) {
       e.stopPropagation();
       if (sidebar.classList.contains("open")) closeSidebarFunc();
       else openSidebar();
     });
-
     if (closeBtn) closeBtn.addEventListener("click", closeSidebarFunc);
-
     document.addEventListener("click", function (e) {
       if (!sidebar.classList.contains("open")) return;
-      if (
-        !sidebar.contains(e.target) &&
-        e.target !== userBtn &&
-        !userBtn.contains(e.target)
-      ) {
+      if (!sidebar.contains(e.target) && e.target !== userBtn && !userBtn.contains(e.target)) {
         closeSidebarFunc();
       }
     });
-
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") closeSidebarFunc();
-    });
   }
 
-  // Botão de logout
+  // Logout Logic
   const logoutBtn = document.querySelector('.sidebar-logout');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', (e) => {
@@ -212,7 +198,7 @@
     });
   }
 
-  // Drag and Drop
+  // Drag and Drop Logic
   let draggingCard = null;
 
   function handleDragStart(e) {
@@ -220,7 +206,6 @@
     this.classList.add("dragging");
     this.classList.remove("drop-animate");
     
-    // Salvar status atual para possível reversão
     const currentList = this.parentElement;
     if (currentList) {
       const currentStatus = listIdToStatus[currentList.id];
@@ -236,28 +221,20 @@
   function handleDragEnd() {
     if (!draggingCard) return;
     draggingCard.classList.remove("dragging");
-    if (
-      draggingCard.parentElement &&
-      draggingCard.parentElement.classList.contains("task-list")
-    ) {
+    if (draggingCard.parentElement && draggingCard.parentElement.classList.contains("task-list")) {
       draggingCard.classList.add("drop-animate");
       const cleanup = () => {
         draggingCard && draggingCard.classList.remove("drop-animate");
-        draggingCard &&
-          draggingCard.removeEventListener("animationend", cleanup);
+        draggingCard && draggingCard.removeEventListener("animationend", cleanup);
       };
       draggingCard.addEventListener("animationend", cleanup);
     }
-    document
-      .querySelectorAll(".task-list.drag-over")
-      .forEach((l) => l.classList.remove("drag-over"));
+    document.querySelectorAll(".task-list.drag-over").forEach((l) => l.classList.remove("drag-over"));
     draggingCard = null;
   }
 
   function getDragAfterElement(container, y) {
-    const draggableElements = [
-      ...container.querySelectorAll(".task-card:not(.dragging)"),
-    ];
+    const draggableElements = [...container.querySelectorAll(".task-card:not(.dragging)")];
     let closest = { offset: Number.NEGATIVE_INFINITY, element: null };
     for (const child of draggableElements) {
       const box = child.getBoundingClientRect();
@@ -269,7 +246,6 @@
     return closest.element;
   }
 
-  // Configurar drag and drop nas listas
   const lists = document.querySelectorAll(".task-list");
   lists.forEach((list) => {
     list.addEventListener("dragover", (e) => {
@@ -296,32 +272,21 @@
     list.addEventListener("drop", async (e) => {
       e.preventDefault();
       list.classList.remove("drag-over");
-      
-      // Atualizar status da tarefa no backend
       const taskCard = document.querySelector(".task-card.dragging");
       if (taskCard) {
         const taskId = parseInt(taskCard.getAttribute('data-task-id'));
         const newStatus = listIdToStatus[list.id];
         const oldStatus = taskCard.getAttribute('data-old-status');
-        
-        // Se o status não mudou, não fazer nada
-        if (oldStatus === newStatus) {
-          return;
-        }
-        
+        if (oldStatus === newStatus) return;
         if (taskId && newStatus) {
           const success = await updateTaskStatus(taskId, newStatus);
           if (!success) {
-            // Reverter se falhar
             if (oldStatus) {
               const oldList = document.getElementById(statusToListId[oldStatus]);
-              if (oldList) {
-                oldList.appendChild(taskCard);
-              }
+              if (oldList) oldList.appendChild(taskCard);
             }
             alert('Erro ao mover tarefa. Tente novamente.');
           } else {
-            // Remover atributo de status antigo após sucesso
             taskCard.removeAttribute('data-old-status');
           }
         }
@@ -329,23 +294,76 @@
     });
   });
 
-  // Botão adicionar tarefa
-  const addTaskBtn = document.querySelector('.add-task');
-  if (addTaskBtn) {
-    addTaskBtn.addEventListener('click', async () => {
-      const title = prompt('Digite o título da nova tarefa:');
-      if (title && title.trim()) {
-        const newTask = await createTask(title.trim(), 'todo');
-        if (newTask) {
-          renderTask(newTask);
-        } else {
-          alert('Erro ao criar tarefa. Tente novamente.');
-        }
-      }
-    });
+ const modal = document.getElementById('customModal');
+  const addTaskBtn = document.querySelector('.add-task'); 
+  const confirmBtn = document.getElementById('confirmBtn'); 
+  const cancelBtn = document.getElementById('cancelBtn');   
+  const newTaskInput = document.getElementById('newTaskInput');
+
+  // Função para abrir o modal
+  function openModal() {
+    if(modal) {
+        // 1. Primeiro tornamos o elemento visível na tela
+        modal.style.display = 'flex';
+        
+        // 2. Um pequeno delay para permitir que a animação CSS (fade in) funcione
+        setTimeout(() => {
+            modal.classList.add('active');
+            newTaskInput.value = ''; 
+            newTaskInput.focus(); 
+        }, 10);
+    }
   }
 
-  // Botão deletar quadro (deletar todas as tarefas)
+  // Função para fechar o modal
+  function closeModal() {
+    if(modal) {
+        // 1. Removemos a classe active para iniciar a animação de saída (fade out)
+        modal.classList.remove('active');
+        
+        // 2. Esperamos a animação (0.3s) terminar antes de remover o elemento da tela
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    }
+  }
+
+  // Função para processar a criação
+  async function handleTaskCreation() {
+    const title = newTaskInput.value.trim();
+    if (title) {
+        confirmBtn.textContent = 'Salvando...';
+        const newTask = await createTask(title, 'todo');
+        if (newTask) {
+            renderTask(newTask);
+            closeModal();
+        } else {
+            alert('Erro ao criar tarefa.');
+        }
+        confirmBtn.textContent = 'Adicionar';
+    } else {
+        newTaskInput.style.borderColor = '#ff5555';
+        setTimeout(() => newTaskInput.style.borderColor = 'rgba(255, 255, 255, 0.2)', 500);
+    }
+  }
+
+  if (addTaskBtn) addTaskBtn.addEventListener('click', openModal);
+  if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+  if (confirmBtn) confirmBtn.addEventListener('click', handleTaskCreation);
+  
+  if (modal) {
+      modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeModal();
+      });
+  }
+  
+  if (newTaskInput) {
+      newTaskInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') handleTaskCreation();
+      });
+  }
+
+  // Botão deletar quadro
   const deleteBoardBtn = document.querySelector('.delete-board');
   if (deleteBoardBtn) {
     deleteBoardBtn.addEventListener('click', async () => {
@@ -364,6 +382,5 @@
     });
   }
 
-  // Carregar tarefas ao inicializar
   loadTasks();
 })();
